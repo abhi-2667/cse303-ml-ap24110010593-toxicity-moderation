@@ -19,7 +19,7 @@ The decision: **publish, send to a human moderator, or remove**. The errors are 
 Jigsaw `train.csv` — 159,571 Wikipedia comments, 6 binary labels, CC0 licence. Rare labels (`threat`, `identity_hate`) make it a real imbalance problem; TF-IDF + linear models train on a laptop.
 
 ## Planned approach
-Follow the course ladder: Logistic Regression → KNN → Decision Tree → SVD (PCA idea) / chi-square analysis → Naive Bayes → SVM → Random Forest → K-Means + Hierarchical clustering → tune the top 2 → benchmark over 3 random splits (mean ± std). **Reviewer: please confirm that skipping the neural-network stage (Exp 11–13) is acceptable.** Features: hybrid word + character TF-IDF, fitted after the split. Metrics: column-averaged ROC-AUC and Macro F1, never plain accuracy.
+Follow the course ladder: Logistic Regression → KNN → Decision Tree → SVD (PCA idea) / chi-square analysis → Naive Bayes → SVM → Random Forest → K-Means + Hierarchical clustering → tune the top 2 → benchmark over 3 random splits (mean ± std). **Reviewer: please confirm that skipping the neural-network stage (Exp 11–13) is acceptable** — I chose a leak-free, explainable CPU pipeline and report the gap to the neural winner. Features: hybrid word + character TF-IDF, fitted after the split. Metrics: column-averaged ROC-AUC and Macro F1, never plain accuracy.
 
 ## Deployment plan
 A Streamlit app (deployed on Streamlit Community Cloud): type any comment, including disguised words like `1d10t`, click "Analyze Comment", and see the PUBLISH / REVIEW / REMOVE badge plus a bar chart of the six probabilities.
