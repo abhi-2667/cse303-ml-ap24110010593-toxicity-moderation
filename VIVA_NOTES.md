@@ -39,7 +39,7 @@ The point is asymmetric cost. A false positive censors a normal user; a false ne
 Business numbers with the tuned SVM: 75.1% of toxic comments do not go live (60.8% auto-removed, the rest reviewed), only 0.24% of clean comments are wrongly removed, and humans read about 2.1% of all comments. Lowering PUBLISH from 0.40 to 0.10 cuts missed toxic comments from 29.0% to 9.0%, but human review rises from 0.9% to 6.7% of clean comments — the right threshold is a business decision.
 
 ## 5. Honest weak spots (say these before the examiner finds them)
-**The obfuscation effect is small.** Overall the character branch clearly helps: word-only ROC-AUC 0.9750 → hybrid 0.9846. But the story I wanted — "character n-grams catch disguised insults" — is not proven. `You are an idiot` scores 1.00, `1d10t` scores 0.74 and `i.d.i.o.t` 0.68, both only REVIEW; and the word-only model scored `1d10t` *higher* (0.88). The EDA explains why: my regex patterns for disguise are about as common in clean comments as in toxic ones (letter-symbol-letter 1.48% toxic vs 1.73% clean), so there is little disguise-specific signal to learn. The likely benefit of the character branch is general robustness to typos and word fragments, not decoding leetspeak. I report this as a negative result rather than claiming the twist worked.
+**The obfuscation effect is small.** Overall the character branch clearly helps: word-only ROC-AUC 0.9751 → hybrid 0.9846. But the story I wanted — "character n-grams catch disguised insults" — is not proven. `You are an idiot` scores 1.00, `1d10t` scores 0.74 and `i.d.i.o.t` 0.68, both only REVIEW; and the word-only model scored `1d10t` *higher* (0.88). The EDA explains why: my regex patterns for disguise are about as common in clean comments as in toxic ones (letter-symbol-letter 1.48% toxic vs 1.73% clean), so there is little disguise-specific signal to learn. The likely benefit of the character branch is general robustness to typos and word fragments, not decoding leetspeak. I report this as a negative result rather than claiming the twist worked.
 
 **`"I will find you and make you regret this"` gets PUBLISHED** (threat probability 0.23). This is a real threat with no threat vocabulary: `find`, `you`, `regret` are ordinary words, and a bag-of-n-grams has no syntax or compositionality. "People like you from that country ruin everything" also goes live. Implicit threats and hate without profanity are the main failure mode. I demonstrate this failure in the app during Poster Day on purpose — a model that only catches swear words is exactly the trap this project is about.
 
@@ -55,7 +55,7 @@ Other limitations I will admit: Macro F1 ~0.56–0.60, rare labels are noisier; 
 | KNN (SVD 100, 40k subset) | 0.8812 | 0.3092 |
 | Decision Tree (SVD 100) | 0.8715 | 0.2224 |
 
-Three random splits (tuned): calibrated SVM **0.9856 ± 0.0011** (Macro F1 0.6015), Logistic Regression **0.9838 ± 0.0013** (0.5910), Naive Bayes 0.9646 (0.4555). Kaggle winner 0.9885 private. Gap ≈ 0.003, on a not-exactly-comparable measure.
+Three random splits (tuned): calibrated SVM **0.9856 ± 0.0011** (Macro F1 0.6014), Logistic Regression **0.9838 ± 0.0013** (0.5910), Naive Bayes 0.9646 (0.4556). Kaggle winner 0.9885 private. Gap ≈ 0.003, on a not-exactly-comparable measure.
 
 ## 7. Likely questions and short answers
 - **Why no neural network?** Scope and hardware: the course ladder ends at classical models; the point is a leak-free, explainable, deployable pipeline. The cost is visible: about 0.003 ROC-AUC below the winning transformer/embedding ensembles. I benchmark against that gap honestly instead of hiding it.
@@ -64,7 +64,7 @@ Three random splits (tuned): calibrated SVM **0.9856 ± 0.0011** (Macro F1 0.601
 - **Why character n-grams 2–5?** 2 captures short fragments (`uk`), 5 captures word-ish pieces; more would explode the 20k budget and slow training.
 - **Why stratify only on `toxic`?** It is the only label large enough to stratify reliably; the rarer labels keep approximately the same rate (checked in notebook 02).
 - **Why is the saved app model Logistic Regression if SVM wins the benchmark?** The capstone uses course-specified settings (`C=1.0`, SVM `C=0.5`), where LR scores higher (0.9846 vs 0.9812). The tuned SVM (`C=0.1`) wins over three splits. Both are reported; the app ships the notebook's best single-split model so its validation numbers describe it exactly.
-- **What does the clustering add?** Exploration only, not deployed: K=4 chosen by silhouette 0.076 (weak), one clear profanity-heavy cluster (98.8% obscene), moderate agreement with hierarchical clustering (ARI 0.445). It shows the labels are not the only structure in the data.
+- **What does the clustering add?** Exploration only, not deployed: K=4 chosen by silhouette 0.075 (weak), one clear profanity-heavy cluster (98.8% obscene), moderate agreement with hierarchical clustering (ARI 0.469). It shows the labels are not the only structure in the data.
 - **Is 0.985 "better than Kaggle"?** No. Different evaluation: my 20% split of `train.csv` versus the hidden test set. I say "within 0.003 of the winner on a rough comparison", never "beat the leaderboard".
 
 ## 8. Poster Day demo script
