@@ -36,7 +36,7 @@ Tuning used only training data (inner split): Logistic Regression `C=4`, SVM `C=
 | Naive Bayes (alpha=0.1) | 0.9646 +/- 0.0019 | 0.4556 +/- 0.0004 | 5 |
 
 Best: **Calibrated SVM, 0.9856**. Kaggle winner: **0.9885** (private leaderboard); a plain TF-IDF + Logistic Regression baseline was reported around 0.976 on the public leaderboard. So we beat the simple baseline and sit **0.0029** below the winner on a rough, not exactly comparable measure.
-*What helped:* tuning `C` (SVM overtook Logistic Regression only after tuning) and a leakage-free split. *Honest gap:* the winners used large neural-network ensembles with pretrained embeddings; this project deliberately stays with fast, explainable linear models. Decision Tree, KNN and Random Forest were not repeated over 3 splits because they were clearly behind and costly to repeat.
+*What helped:* tuning `C` (SVM overtook Logistic Regression only after tuning) and a leakage-free split. *Honest gap:* the winners used large neural-network ensembles with pretrained embeddings; this project deliberately stays with fast, explainable linear models. The capability forgone is contextual semantics and pretrained embeddings, which is exactly the failure mode shown in the limitations (an implicit threat with no threat vocabulary). Decision Tree, KNN and Random Forest were not repeated over 3 splits because they were clearly behind and costly to repeat.
 Note: the capstone notebook uses the course-specified settings (SVM `C=0.5`, Logistic Regression `C=1.0`), where Logistic Regression scored higher (0.9846 vs 0.9812) and is the model saved for the app.
 
 ## 6. Business translation
