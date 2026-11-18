@@ -1,7 +1,7 @@
 # Intelligent Toxicity Moderation Platform
 
 CSE303 Machine Learning — Capstone Project (D. Abhiram, AP24110010593).
-Suggested repo name: `cse303-ml-ap24110010593-toxicity-moderation`
+Repository: [abhi-2667/cse303-ml-ap24110010593-toxicity-moderation](https://github.com/abhi-2667/cse303-ml-ap24110010593-toxicity-moderation)
 
 Multi-label toxic-comment detection on the full
 [Jigsaw Toxic Comment Classification Challenge](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge)
@@ -34,7 +34,7 @@ The neural-network stage (Exp 11–13) is intentionally not part of this project
 ## Project structure
 ```
 data/raw/          dataset (git-ignored)           data/processed/  saved features (git-ignored)
-models/            saved .pkl files (git-ignored)  assets/          plots used in the report
+models/            deployed .pkl (force-added)     assets/          plots used in the report
 notebooks/         the 7 notebooks                 app/app.py       Streamlit demo (mandatory deployment)
 download_data.py   dataset download + fallback     PROPOSAL.md, REPORT.md, VIVA_NOTES.md
 ```
@@ -78,6 +78,7 @@ Local run: `streamlit run app/app.py` (tested: page returns HTTP 200 and the bad
 git tag milestone     # after the SVM / comparison stage
 git tag final         # final state before Poster Day
 ```
+Both tags already exist here: `milestone` sits on the model-comparison commit, `final` on the last commit.
 
 ## Sources and citations
 * **Kaggle competition page (dataset + metric):** [Jigsaw Toxic Comment Classification Challenge](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge) — Jigsaw / Conversation AI, 2018. `train.csv` is released under CC0; the comment text is from Wikipedia (CC-BY-SA 3.0). Metric: mean column-wise ROC-AUC.
