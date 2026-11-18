@@ -1,0 +1,7 @@
+data/raw/
+data/processed/
+models/*.pkl
+venv/
+__pycache__/
+logs/
+.streamlit/secrets.toml
