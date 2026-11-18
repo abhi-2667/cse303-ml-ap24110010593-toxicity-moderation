@@ -51,7 +51,7 @@ With the tuned SVM and the 3-tier rule (split 1): **75.1%** of toxic comments do
 K-Means on 13,004 toxic comments, K=4 chosen by silhouette (0.075, weak). One clear cluster is profanity-heavy (98.8% `obscene`, 34% `severe_toxic`); the others are mostly generic "you / your" text. Hierarchical clustering (1,000-comment sample) agrees only moderately (Adjusted Rand Index 0.469). Clustering is exploratory and not used in the deployed pipeline.
 
 ## 9. Deployment
-`app/app.py` (Streamlit, runs locally) loads `models/tfidf_union.pkl` and `models/best_model.pkl`, shows the decision badge and a six-bar probability chart. Checked in a headless run: "great work" -> PUBLISH, "You are an idiot" -> REMOVE, "You are an 1d10t" -> REVIEW, "This is complete bullshit." -> REMOVE, "I will find you and make you regret this" -> PUBLISH.
+`app/app.py` (Streamlit; runs locally, and is deploy-ready for Streamlit Community Cloud, with both ~1 MB model artifacts committed) loads `models/tfidf_union.pkl` and `models/best_model.pkl`, shows the decision badge and a six-bar probability chart. Checked in a headless run: "great work" -> PUBLISH, "You are an idiot" -> REMOVE, "You are an 1d10t" -> REVIEW, "This is complete bullshit." -> REMOVE, "I will find you and make you regret this" -> PUBLISH.
 
 ## 10. Limitations
 * The bag-of-n-grams model has no sentence understanding: **"I will find you and make you regret this" is PUBLISHED** (threat probability 0.23), and "People like you from that country ruin everything" also goes live. Implicit threats and hate without profanity are the main failure.

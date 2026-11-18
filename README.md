@@ -59,6 +59,13 @@ Notebooks 03–06 need the files saved by notebook 02. On a laptop the full run 
 ### Kaggle setup (optional)
 Put `kaggle.json` in `~/.kaggle/` (Windows: `C:\Users\<you>\.kaggle\`) and accept the competition rules once on the competition page. If Kaggle is not set up, `download_data.py` downloads the same `train.csv` (CC0 dataset) from a public GitHub mirror and checks it has exactly 159,571 rows.
 
+## Live demo (Streamlit Community Cloud)
+[![Deploy to Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=abhi-2667/cse303-ml-ap24110010593-toxicity-moderation&branch=main&mainModule=app/app.py)
+
+The app is deploy-ready: `models/best_model.pkl` and `models/tfidf_union.pkl` (~1 MB each) are committed on purpose so the Cloud container does not need to retrain. To publish it: click the badge, sign in with GitHub, keep the repo / branch `main` / entrypoint `app/app.py`, pick Python 3.11, and press **Deploy**. Replace the badge with the `https://<app-name>.streamlit.app` link once it is live.
+
+Local run: `streamlit run app/app.py` (tested: page returns HTTP 200 and the badge/plot work).
+
 ## Moderation rules
 | Decision | Rule |
 |----------|------|
